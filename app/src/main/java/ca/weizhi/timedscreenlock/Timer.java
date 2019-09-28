@@ -1,34 +1,44 @@
 package ca.weizhi.timedscreenlock;
 
 public class Timer {
+    private int id;
 
     private int time;
-    private boolean active;
-    private boolean repeat;
+    private int active;
+    private int repeat;
+    private int mode;
 
-    public Timer(int time,boolean active,boolean repeat){
+
+
+    public Timer(int id,int time,int repeat,int active,int mode){
+        this.id=id;
         this.time=time;
         this.active=active;
         this.repeat=repeat;
+        this.mode=mode;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getTime() {
         return time;
     }
 
-    public boolean isActive() {
+    public int isActive() {
         return active;
     }
 
-    public boolean isRepeat() {
+    public int isRepeat() {
         return repeat;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         this.active = active;
     }
 
-    public void setRepeat(boolean repeat) {
+    public void setRepeat(int repeat) {
         this.repeat = repeat;
     }
 
@@ -36,5 +46,11 @@ public class Timer {
         this.time = time;
     }
 
+    public int getMode() {
+        return mode;
+    }
 
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
 }

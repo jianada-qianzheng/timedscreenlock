@@ -63,6 +63,22 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
         }
 
+         cursor= db.rawQuery("select * from timer; ",null);
+
+        if(!cursor.moveToNext()) {
+
+
+
+
+            db.execSQL("insert into timer values(0,0,0,0);");
+            db.execSQL("insert into timer values(1,10*60*1000,0,0);");
+            db.execSQL("insert into timer values(2,20*60*1000,0,0);");
+            db.execSQL("insert into timer values(3,30*60*1000,0,0);");
+            db.execSQL("insert into timer values(4,60*60*1000,0,0);");
+            db.execSQL("insert into timer values(5,1*60*1000,0,0);");
+
+        }
+
 
     }
 
