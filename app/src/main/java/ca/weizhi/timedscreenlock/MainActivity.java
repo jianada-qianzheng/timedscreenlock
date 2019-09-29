@@ -234,9 +234,9 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                 mJobScheduler.cancel(timerArrayList.get(position).getId()*(1));
 
                 if(repeat==1) {
-                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*16,true );
+                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1,true );
                 }else{
-                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*16,false );
+                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1,false );
 
                 }
             }
@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
             if(active==1) {
 
-                scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*16, repeat);
+                scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1, repeat);
 
                 Log.i("turn_on"," "+timerArrayList.get(position).getId() * (1));
             }else{
@@ -678,7 +678,10 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
             builder.setPeriodic(1000 * 60 * 16);
 
         }else{
-             builder.setMinimumLatency(0);
+
+            //builder.setPeriodic(0);
+
+            builder.setMinimumLatency(0);
 
         }
 
