@@ -30,7 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Array;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CountdownAdapter.SuccessResponse,TimerAdapter.Response {
@@ -230,13 +233,13 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
             if(timerArrayList.get(position).isActive()==1){
 
-                cancelJob(this,timerArrayList.get(position).getId() * (1));
-                mJobScheduler.cancel(timerArrayList.get(position).getId()*(1));
+                cancelJob(this,timerArrayList.get(position).getId() * (-1));
+                mJobScheduler.cancel(timerArrayList.get(position).getId()*(-1));
 
                 if(repeat==1) {
-                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1,true );
+                    scheduleJob(timerArrayList.get(position).getId() * (-1), getLockTime(timerArrayList.get(position).getTime()),true );
                 }else{
-                    scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1,false );
+                    scheduleJob(timerArrayList.get(position).getId() * (-1),  getLockTime(timerArrayList.get(position).getTime()),false );
 
                 }
             }
@@ -265,15 +268,15 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
             if(active==1) {
 
-                scheduleJob(timerArrayList.get(position).getId() * (1), 1000*60*1, repeat);
+                scheduleJob(timerArrayList.get(position).getId() * (-1),  getLockTime(timerArrayList.get(position).getTime()), repeat);
 
-                Log.i("turn_on"," "+timerArrayList.get(position).getId() * (1));
+                Log.i("turn_on"," "+timerArrayList.get(position).getId() * (-1));
             }else{
 
-                 mJobScheduler.cancel(timerArrayList.get(position).getId()*(1));
+                 mJobScheduler.cancel(timerArrayList.get(position).getId()*(-1));
 
-                cancelJob(this,timerArrayList.get(position).getId() * (1));
-                Log.i("turn_off"," "+timerArrayList.get(position).getId() * (1));
+                cancelJob(this,timerArrayList.get(position).getId() * (-1));
+                Log.i("turn_off"," "+timerArrayList.get(position).getId() * (-1));
 
 
 
@@ -285,6 +288,40 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
         }
 
         timerAdapter.notifyDataSetChanged();
+
+
+    }
+
+    public int getLockTime(int time){
+
+//        Calendar c = Calendar.getInstance();
+//        int now_int = c.get(Calendar.MILLISECOND);
+
+
+        Date currentTime = Calendar.getInstance().getTime();
+
+        //long now_long=currentTime.getTime();
+
+
+
+        long now_long= currentTime.getTime()%(1000*24*60*60);
+
+        int now_int=Integer.parseInt(""+now_long);
+
+        Log.i("lock_time",now_int+"/"+time);
+
+        if(now_int<time){
+            return time-now_int;
+
+        }else{
+
+            return time+24*60*60*1000-now_int;
+
+        }
+
+
+
+
 
 
     }
