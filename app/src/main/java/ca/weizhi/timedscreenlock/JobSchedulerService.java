@@ -23,6 +23,8 @@ public class JobSchedulerService extends JobService {
     private Messenger mActivityMessenger;
 
 
+
+
     // 当应用程序的MainActivity被创建时，它启动这个服务。
     // 这是为了使活动和此服务可以来回通信。 请参见“setUiCallback（）”
     @Override
@@ -61,7 +63,8 @@ public class JobSchedulerService extends JobService {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                //sendMessage(MSG_JOB_STOP, params.getJobId());
+                sendMessage(0, params.getJobId());
+
                 lockScreen();
                 jobFinished(params, false);
             }
@@ -75,7 +78,7 @@ public class JobSchedulerService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         // 停止跟踪这些作业参数，因为我们已经完成工作。
-        //sendMessage(MSG_JOB_STOP, params.getJobId());
+        sendMessage(0, params.getJobId());
         //Log.i(TAG, "on stop job: " + params.getJobId());
 
         // 返回false来销毁这个工作

@@ -7,6 +7,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,7 +20,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.os.PersistableBundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +37,7 @@ import android.widget.Toast;
 
 import java.sql.Array;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
     ArrayList<Timer> timerArrayList;
 
+
+
+
+
     public static void cancelJob(Context mContext, int jobID) {
         JobScheduler scheduler = (JobScheduler)
                 mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
@@ -76,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
             }
         }
     }
+
+
 
     @Override
     public  void sendTimerContent(String info){
@@ -294,17 +307,30 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
     public int getLockTime(int time){
 
+
+//        Calendar c = Calendar.getInstance();
+//        System.out.println("Current time => "+c.getTime());
+//
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String formattedDate = df.format(c.getTime());
+//        // formattedDate have current date/time
+//        Toast.makeText(this, formattedDate, Toast.LENGTH_SHORT).show();
+
+        Date currentTime = Calendar.getInstance().getTime();
+
+
+
 //        Calendar c = Calendar.getInstance();
 //        int now_int = c.get(Calendar.MILLISECOND);
 
 
-        Date currentTime = Calendar.getInstance().getTime();
+        //Date currentTime = Calendar.getInstance().getTime();
 
         //long now_long=currentTime.getTime();
 
 
 
-        long now_long= currentTime.getTime()%(1000*24*60*60);
+        long now_long= (currentTime.getHours()*60*60+currentTime.getMinutes()*60+currentTime.getSeconds())*1000;
 
         int now_int=Integer.parseInt(""+now_long);
 
@@ -561,6 +587,8 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
 
 
+
+
     }
 
     public String getTimeString(int time){
@@ -611,6 +639,8 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
         mServieComponent = new ComponentName(this, JobSchedulerService.class);// 获取到我们自己的jobservice，同时启动该service
 
 
+
+
         //如果设备管理器尚未激活，这里会启动一个激活设备管理器的Intent,具体的表现就是第一次打开程序时，手机会弹出激活设备管理器的提示，激活即可。
         if (!mDPM.isAdminActive(mAdminName)) {
             showAdminManagement(mAdminName);
@@ -619,6 +649,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
         dbhelper = new CustomSQLiteOpenHelper(this);
 
         db = dbhelper.getWritableDatabase();
+
 
 
     }
@@ -827,7 +858,9 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                 }
 
 
-            }else if(mode==2){
+            //}else if(mode==2){
+
+            }else {
                 mode = 3;//edit
 
                 if(countdownLayout.getVisibility()==View.VISIBLE) {
