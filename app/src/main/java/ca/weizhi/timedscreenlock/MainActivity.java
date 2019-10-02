@@ -886,24 +886,26 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
             Message m;
             Log.i("message"," "+msg.what+"/"+msg.obj);
 
-            int position=(Integer.parseInt(""+msg.obj))*(-1);
+            int id=(Integer.parseInt(""+msg.obj))*(-1);
 
             if(msg.what==0){
                 //todo
-                if(timerArrayList.get(position).isRepeat()==0){
-                    timerArrayList.get(position).setActive(0);
 
-                    //timerArrayList.get(3).setActive(1);
+                for(int i=0;i<timerArrayList.size();i++) {
+                    if (timerArrayList.get(i).isRepeat() == 0&&timerArrayList.get(i).getId()==id) {
+                        timerArrayList.get(i).setActive(0);
 
-                    //timerArrayList.get(position).setMode(1);
+                        //timerArrayList.get(3).setActive(1);
 
-                    Log.i("changed"," "+msg.what+"/"+position);
+                        //timerArrayList.get(position).setMode(1);
 
-                    //db.execSQL("");todo
+                        Log.i("changed", " " + msg.what + "/" + id);
+
+                        //db.execSQL("");todo
+                    }
+
+
                 }
-
-
-
                 timerAdapter.notifyDataSetChanged();
 
                 //timedLayout.setVisibility(View.GONE);
