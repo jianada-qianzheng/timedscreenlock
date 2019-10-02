@@ -68,21 +68,21 @@ public class TimerAdapter extends BaseAdapter {
 
             holder.timePicker.setVisibility(View.GONE);
 
-            if(listData.get(position).isActive()==1){
-
-                holder.aSwitch.setChecked(true);
-
-            }else {
-                holder.aSwitch.setChecked(false);
-            }
-
-            if(listData.get(position).isRepeat()==1){
-
-                holder.checkBox.setChecked(true);
-
-            }else {
-                holder.checkBox.setChecked(false);
-            }
+//            if(listData.get(position).isActive()==1){
+//
+//                holder.aSwitch.setChecked(true);
+//
+//            }else {
+//                holder.aSwitch.setChecked(false);
+//            }
+//
+//            if(listData.get(position).isRepeat()==1){
+//
+//                holder.checkBox.setChecked(true);
+//
+//            }else {
+//                holder.checkBox.setChecked(false);
+//            }
 
             holder.deleteButton.setVisibility(View.GONE);
             holder.changeButton.setVisibility(View.GONE);
@@ -278,6 +278,22 @@ public class TimerAdapter extends BaseAdapter {
 //            holder.deleteButton.setVisibility(View.VISIBLE);
 //            holder.changeButton.setVisibility(View.VISIBLE);
 
+        }
+
+        if(listData.get(position).isActive()==1){
+
+            holder.aSwitch.setChecked(true);
+
+        }else {
+            holder.aSwitch.setChecked(false);
+        }
+
+        if(listData.get(position).isRepeat()==1){
+
+            holder.checkBox.setChecked(true);
+
+        }else {
+            holder.checkBox.setChecked(false);
         }
 
 

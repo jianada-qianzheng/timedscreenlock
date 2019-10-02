@@ -35,6 +35,8 @@ public class JobSchedulerService extends JobService {
         return START_NOT_STICKY;
     }
 
+
+
     @Override
     public boolean onStartJob(final JobParameters params) {
         // The work that this service "does" is simply wait for a certain duration and finish
