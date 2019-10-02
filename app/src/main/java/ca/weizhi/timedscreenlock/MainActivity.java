@@ -704,7 +704,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
         if (repeat) {
             //builder.setPeriodic(1000 * 60 * 60 * 24);
-            builder.setPeriodic(1000 * 60 * 16);
+            builder.setPeriodic(1000 * 60 * 16);//todo
 
         } else {
 
@@ -900,6 +900,9 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                         //timerArrayList.get(position).setMode(1);
 
                         Log.i("changed", " " + msg.what + "/" + id);
+
+                        db.execSQL("UPDATE timer SET ative = " + 0 + " WHERE id = " + timerArrayList.get(i).getId() + "; ");
+
 
                         //db.execSQL("");todo
                     }
