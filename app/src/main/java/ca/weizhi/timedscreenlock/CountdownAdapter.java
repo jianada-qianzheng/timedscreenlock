@@ -262,6 +262,10 @@ public class CountdownAdapter extends BaseAdapter {
                 successResponse.sendContent("6"+position);
             }
         });
+
+        //holder.timePicker.setIs24HourView(true);
+
+
         return v;
     }
 

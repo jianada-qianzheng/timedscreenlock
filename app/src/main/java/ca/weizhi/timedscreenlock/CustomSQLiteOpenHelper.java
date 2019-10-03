@@ -59,7 +59,6 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
             db.execSQL("insert into countdown values(2,20*60*1000);");
             db.execSQL("insert into countdown values(3,30*60*1000);");
             db.execSQL("insert into countdown values(4,60*60*1000);");
-            db.execSQL("insert into countdown values(5,1*60*1000);");
 
         }
 
@@ -71,7 +70,6 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
             db.execSQL("insert into timer values(0,0,0,0);");
-            db.execSQL("insert into timer values(1,2*60*60*1000,0,0);");
             db.execSQL("insert into timer values(2,1*60*60*1000,0,0);");
             db.execSQL("insert into timer values(3,0*60*60*1000,0,0);");
             db.execSQL("insert into timer values(4,23*60*60*1000,0,0);");

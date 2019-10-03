@@ -703,8 +703,8 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
         //builder.setPeriodic(3000);
 
         if (repeat) {
-            //builder.setPeriodic(1000 * 60 * 60 * 24);
-            builder.setPeriodic(1000 * 60 * 16);//todo
+            builder.setPeriodic(1000 * 60 * 60 * 24);
+            //builder.setPeriodic(1000 * 60 * 16);//todo
 
         } else {
 

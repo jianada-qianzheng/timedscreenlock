@@ -296,7 +296,7 @@ public class TimerAdapter extends BaseAdapter {
             holder.checkBox.setChecked(false);
         }
 
-
+        holder.timePicker.setIs24HourView(true);
 
 
 
