@@ -13,6 +13,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
     ArrayList<Timer> timerArrayList;
 
     private IncomingMessageHandler mHandler;
+
+    private AdView mAdView;
+
 
 
     public static void cancelJob(Context mContext, int jobID) {
@@ -178,21 +186,24 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
         } else if (mode == 6) {
 
-
-            int position = Integer.parseInt(info.substring(1));
-            db.execSQL("delete from timer where id=" + timerArrayList.get(position).getId() + ";");
+            if(timerArrayList.size()>2) {
 
 
-            timerArrayList.remove(position);
-            //database todo
+                int position = Integer.parseInt(info.substring(1));
+                db.execSQL("delete from timer where id=" + timerArrayList.get(position).getId() + ";");
 
 
-            mode = 3;
+                timerArrayList.remove(position);
+                //database todo
 
-            for (int i = 0; i < timerArrayList.size() - 1; i++) {
 
-                timerArrayList.get(i).setMode(mode);
+                mode = 3;
+
+                for (int i = 0; i < timerArrayList.size() - 1; i++) {
+
+                    timerArrayList.get(i).setMode(mode);
 //
+                }
             }
 
         } else if (mode == 7) {
@@ -213,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 //
             ActionMenuItemView item = findViewById(R.id.mybutton);
 
-            item.setTitle("確定");
+            item.setTitle(getResources().getString(R.string.ok));
 //
 
 //
@@ -352,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
             //todo
 
-            Toast.makeText(getApplicationContext(), getTimeString(countdownList.get(position).getTime() / 1000) + "後鎖屏", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getTimeString(countdownList.get(position).getTime() / 1000) + getResources().getString(R.string.later_lock_screen), Toast.LENGTH_LONG).show();
 
 
             countdownList.get(position).setMode(mode);
@@ -411,41 +422,49 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
         } else if (mode == 6) {
 
-
-            int position = Integer.parseInt(info.substring(1));
-            db.execSQL("delete from countdown where id=" + countdownList.get(position).getId() + ";");
-
-
-            countdownList.remove(position);
-            //database todo
+            if(countdownList.size()>2) {
+                int position = Integer.parseInt(info.substring(1));
+                db.execSQL("delete from countdown where id=" + countdownList.get(position).getId() + ";");
 
 
-            mode = 3;
+                countdownList.remove(position);
+                //database todo
 
-            for (int i = 0; i < countdownList.size() - 1; i++) {
 
-                countdownList.get(i).setMode(mode);
+                mode = 3;
 
+                for (int i = 0; i < countdownList.size() - 1; i++) {
+
+                    countdownList.get(i).setMode(mode);
+
+                }
             }
 
         } else if (mode == 7) {
 
 
-            countdownList.add(countdownList.size() - 1, new CountdownTimer(countdownList.get(countdownList.size() - 1).getId() + 1, 1800000));
+            //countdownList.add(countdownList.size() - 1, new CountdownTimer(countdownList.get(countdownList.size() - 1).getId() + 1, 1800000));
+            countdownList.add(0, new CountdownTimer(countdownList.get( 0).getId() + 1, 1800000));
+            int id =countdownList.get(0).getId();
+            db.execSQL("insert into countdown values("+id+",1800000);");
+
 
             mode = 3;
 
             ActionMenuItemView item = findViewById(R.id.mybutton);
 
-            item.setTitle("確定");
+            item.setTitle(getResources().getString(R.string.ok));
 
             for (int i = 0; i < countdownList.size() - 1; i++) {
 
                 countdownList.get(i).setMode(3);
 
             }
+            countdownList.get(0).setMode(4);
+            //countdownList.get(countdownList.size()-1).setMode(3);
+            //countdownList.get(countdownList.size() - 2).setMode(4);
 
-            countdownList.get(countdownList.size() - 2).setMode(4);
+
         }
 
         countdownAdapter.notifyDataSetChanged();
@@ -471,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                         ActionMenuItemView item1 = findViewById(R.id.mybutton);
 
 
-                        item1.setTitle("編輯");
+                        item1.setTitle(getResources().getString(R.string.edit));
 
                         for (int i = 0; i < countdownList.size() - 1; i++) {
 
@@ -495,7 +514,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                         mode = 1;
 
                         ActionMenuItemView item1 = findViewById(R.id.mybutton);
-                        item1.setTitle("編輯");
+                        item1.setTitle(getResources().getString(R.string.edit));
 
                         for (int i = 0; i < timerArrayList.size() - 1; i++) {
 
@@ -559,12 +578,12 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
         if (hour == 0 && minu == 0 && second != 0) {
 
-            timeString = (second + "秒");
+            timeString = (second +getResources().getString(R.string.second));
 
         } else if (hour == 0 && minu != 0) {
-            timeString = (minu + "分鐘" + second + "秒");
+            timeString = (minu + getResources().getString(R.string.minute) + second + getResources().getString(R.string.second));
         } else if (hour != 0) {
-            timeString = (hour + "小時" + minu + "分鐘" + second + "秒");
+            timeString = (hour + getResources().getString(R.string.hour) + minu + getResources().getString(R.string.minute) + second +getResources().getString(R.string.second));
 
         }
 
@@ -604,6 +623,16 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
         db = dbhelper.getWritableDatabase();
 
         mHandler = new IncomingMessageHandler(this);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 
@@ -772,7 +801,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
                 mode = 3;//edit
 
-                item.setTitle("確定");
+                item.setTitle(getResources().getString(R.string.ok));
 
                 if (countdownLayout.getVisibility() == View.VISIBLE) {
 
@@ -796,7 +825,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
 
             } else if (mode == 3) {
                 mode = 1;
-                item.setTitle("編輯");
+                item.setTitle(getResources().getString(R.string.edit));
                 if (countdownLayout.getVisibility() == View.VISIBLE) {
                     for (int i = 0; i < countdownList.size() - 1; i++) {
 
@@ -848,7 +877,7 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                 }
 
 
-                item.setTitle("確定");
+                item.setTitle(getResources().getString(R.string.ok));
 
 
             }

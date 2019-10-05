@@ -21,6 +21,8 @@ public class CountdownAdapter extends BaseAdapter {
 
     SuccessResponse successResponse;
 
+    Context context;
+
     //CountDownTimer countDownTimer;
 
     public interface SuccessResponse{
@@ -34,6 +36,8 @@ public class CountdownAdapter extends BaseAdapter {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
         this.successResponse=successResponse;
+
+        context=aContext;
 
 
 
@@ -104,7 +108,7 @@ public class CountdownAdapter extends BaseAdapter {
 
                                 setTimeVIew((int) (listData.get(position).getTime() / 1000), holder.timeText);
 
-                                holder.start.setText("開始倒計時");
+                                holder.start.setText(context.getResources().getString(R.string.start));
                                 successResponse.sendContent("1"+position);
                             }
                         };
@@ -187,7 +191,7 @@ public class CountdownAdapter extends BaseAdapter {
             holder.start.setVisibility(View.VISIBLE);
 
 
-            holder.start.setText("開始倒計時");
+            holder.start.setText(context.getResources().getString(R.string.start));
 
             holder.textView1.setVisibility(View.VISIBLE);
             holder.textView2.setVisibility(View.GONE);
@@ -208,7 +212,7 @@ public class CountdownAdapter extends BaseAdapter {
 
             holder.start.setVisibility(View.VISIBLE);
 
-            holder.start.setText("正在倒計時");
+            holder.start.setText(context.getResources().getString(R.string.counting_down));
 
             holder.start.setClickable(false);
 
@@ -222,17 +226,18 @@ public class CountdownAdapter extends BaseAdapter {
             holder.delete.setVisibility(View.VISIBLE);
             holder.countdownpicker.setVisibility(View.GONE);
             setTimeVIew(listData.get(position).getTime()/1000,holder.timeText);
+            holder.timeText.setVisibility(View.VISIBLE);
 
 //
             holder.start.setClickable(true);
-            holder.start.setText("更改時間");
+            holder.start.setText(context.getResources().getString(R.string.change_time));
 
 
 
 
         }else if (listData.get(position).getMode()==4){
 
-            holder.start.setText("保存");
+            holder.start.setText(context.getResources().getString(R.string.save));
 
             holder.countdownpicker.setVisibility(View.VISIBLE);
 
@@ -281,12 +286,12 @@ public class CountdownAdapter extends BaseAdapter {
 
         if(hour==0&&minu==0&&second!=0){
 
-            timeView.setText(second+"秒");
+            timeView.setText(second+context.getResources().getString(R.string.second));
 
         }else if (hour==0&&minu!=0){
-            timeView.setText(minu+"分鐘"+second+"秒");
+            timeView.setText(minu+context.getResources().getString(R.string.minute)+second+context.getResources().getString(R.string.second));
         }else if(hour!=0){
-            timeView.setText(hour+"小時"+minu+"分鐘"+second+"秒");
+            timeView.setText(hour+context.getResources().getString(R.string.hour)+minu+context.getResources().getString(R.string.minute)+second+context.getResources().getString(R.string.second));
 
         }
 

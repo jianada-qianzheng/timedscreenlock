@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">定时锁屏</string>
+    <string name="title_home">定时锁屏</string>
+    <string name="title_dashboard">倒计时锁屏</string>
+    <string name="title_notifications">通知</string>
+    <string name="hour">小时</string>
+    <string name="minute">分钟</string>
+    <string name="second">秒</string>
+    <string name="repeat">每天重复</string>
+    <string name="active">开启</string>
+    <string name="edit">编辑</string>
+    <string name="start">开始倒计时</string>
+    <string name="save">保存</string>
+    <string name="ok">完成</string>
+    <string name="later_lock_screen">后锁屏</string>
+    <string name="change_time">更改时间</string>
+
+    <string name="counting_down">正在倒计时</string>
+
+
+
+
+</resources>

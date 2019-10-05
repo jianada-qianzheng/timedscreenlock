@@ -107,7 +107,12 @@ public class JobSchedulerService extends JobService {
 
     public void lockScreen(){
         mDPM = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+        //mAdminName = new ComponentName(this, AdminManageReceiver.class);
+
         mAdminName = new ComponentName(this, AdminManageReceiver.class);
+
+
+
 
         if (mDPM.isAdminActive(mAdminName)) {
             mDPM.lockNow();

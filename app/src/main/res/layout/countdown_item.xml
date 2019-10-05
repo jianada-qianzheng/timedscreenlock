@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=" 小時 " />
+            android:text="@string/hour" />
 
         <TextView
             android:id="@+id/textView2"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:drawable/btn_default"
-            android:text="開始倒計時" />
+            android:text="@string/start" />
 
         <Button
             android:id="@+id/delete"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text=" 小時 " />
+            android:text="@string/hour" />
 
         <NumberPicker
             android:id="@+id/minuPicker"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text=" 分鐘" />
+            android:text="@string/minute" />
 
         <NumberPicker
             android:id="@+id/seconPicker"
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="秒" />
+            android:text="@string/second" />
     </LinearLayout>
 
 

@@ -21,6 +21,7 @@ public class TimerAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
 
     Response response;
+    Context context;
 
 
 
@@ -35,6 +36,10 @@ public class TimerAdapter extends BaseAdapter {
         layoutInflater = LayoutInflater.from(aContext);
 
         this.response=response;
+
+        context=aContext;
+
+
 
     }
     @Override
@@ -253,7 +258,7 @@ public class TimerAdapter extends BaseAdapter {
             Log.i("change_mode","mode=3");
 
             holder.timeView.setVisibility(View.VISIBLE);
-            holder.changeButton.setText("更改時間");
+            holder.changeButton.setText(context.getResources().getString(R.string.change_time));
             holder.checkBox.setVisibility(View.GONE);
             holder.aSwitch.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.VISIBLE);
@@ -268,7 +273,7 @@ public class TimerAdapter extends BaseAdapter {
             holder.checkBox.setVisibility(View.GONE);
 
             holder.timePicker.setVisibility(View.VISIBLE);
-            holder.changeButton.setText("保存");
+            holder.changeButton.setText(context.getResources().getString(R.string.save));
 
             Log.i("change_mode","mode=3");
             //holder.timeView.setVisibility(View.GONE);
