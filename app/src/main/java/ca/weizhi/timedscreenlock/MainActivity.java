@@ -532,6 +532,13 @@ public class MainActivity extends AppCompatActivity implements CountdownAdapter.
                     countdownLayout.setVisibility(View.VISIBLE);
 
 
+
+
+
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.add_password), Toast.LENGTH_LONG).show();
+
+
+
                     return true;
 //                case R.id.navigation_notifications:
 //                    return true;

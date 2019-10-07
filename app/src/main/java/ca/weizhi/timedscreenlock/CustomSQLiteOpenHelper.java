@@ -60,7 +60,6 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
             db.execSQL("insert into countdown values(2,30*60*1000);");
             db.execSQL("insert into countdown values(3,20*60*1000);");
 
-            db.execSQL("insert into countdown values(4,10*60*1000);");
 
 
 
