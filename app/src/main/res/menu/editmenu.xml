@@ -9,7 +9,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mybutton"
-        android:title="編輯"
-        app:showAsAction="always"
-        />
+        android:title="@string/edit"
+        app:showAsAction="always" />
 </menu>
